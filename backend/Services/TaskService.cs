@@ -17,18 +17,38 @@ public class TaskService : ITaskService
     
     public async Task<ActionResult<DateCalculation>> CreateDateCalculation(DateCalculationDTO dateCalculationDto)
     {
-        Console.WriteLine(dateCalculationDto.StartDate);
-        Console.WriteLine(dateCalculationDto.Interval);
-        Console.WriteLine(dateCalculationDto.DayOfWeek);
+        var todayDate = DateTime.Today;
+        DateTime startDate = dateCalculationDto.StartDate;
+        int interval = dateCalculationDto.Interval;
+        DayOfWeek dayOfWeek = (DayOfWeek)(dateCalculationDto.DayOfWeek);
+        Console.WriteLine(dayOfWeek);
         
-        // mockup
+        // Calculate the first appearance
+        DateTime firstAppearance = startDate.AddDays((7 + (int)dayOfWeek - (int)startDate.DayOfWeek) % 7);
+        
+        // Calculate the number of occurrences
+        int numberOfOccurrences = (int)Math.Ceiling((todayDate - firstAppearance).TotalDays / (interval * 7.0));
+        
+        // Calculate the previous and next appearance
+        DateTime previousAppearance = firstAppearance;
+        DateTime nextAppearance = firstAppearance;
+        for (int i = 0; i < numberOfOccurrences; i++)
+        {
+            nextAppearance = nextAppearance.AddDays(interval * 7);
+            if (nextAppearance > todayDate)
+            {
+                break;
+            }
+            previousAppearance = nextAppearance;
+        }
+        
         var dateCalculation = new DateCalculation
         {
-            NumberofOccurences = dateCalculationDto.Interval,
-            TodayDate = dateCalculationDto.StartDate.ToString("yyyy-MM-dd"),
-            FirstAppearance = dateCalculationDto.StartDate.ToString("yyyy-MM-dd"),
-            PreviousApperance = dateCalculationDto.StartDate.ToString("yyyy-MM-dd"),
-            NextApperance = dateCalculationDto.StartDate.ToString("yyyy-MM-dd")
+            NumberofOccurences = numberOfOccurrences,
+            TodayDate = todayDate.ToString("yyyy-MM-dd"),
+            FirstAppearance = firstAppearance.ToString("yyyy-MM-dd"),
+            PreviousApperance = previousAppearance.ToString("yyyy-MM-dd"),
+            NextApperance = nextAppearance.ToString("yyyy-MM-dd")
         };
         
         _context.DateCalculations.Add(dateCalculation);

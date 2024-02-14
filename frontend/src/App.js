@@ -5,15 +5,6 @@ import DateForm from './components/DateForm.jsx';
 import Result from './components/Result.jsx';
 
 function App() {
-  
-  const result = {
-    numberOfAppearances: 5,
-    todayDate: '2023-09-01',
-    firstAppearance: '2023-08-02',
-    previousApperance: '2023-08-30',
-    nextApperance: '2023-09-06'
-  };
-
   return (
     <div className="App">
       
@@ -27,13 +18,13 @@ function App() {
       <div className="container d-flex justify-content-center align-items-center vh-100">
           <div className="content">
             <DateForm />
-            {result !== null && <Result result={result} />}
+            <Result />
           </div>
       </div>
       
       <Navbar bg="dark" expand="lg">
         <Container>
-            <Navbar.Brand href='https://github.com/MrChazar' className="text-white">Wykonane przez Jakuba Wieśniaka</Navbar.Brand>
+            <Navbar.Brand href='https://github.com/MrChazar' className="text-white">Zadanie Wykonane Przez Jakuba Wieśniak - MrChazar</Navbar.Brand>
         </Container>
       </Navbar>
       

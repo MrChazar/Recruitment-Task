@@ -3,20 +3,27 @@ import  axios  from "axios";
 import { useForm } from "react-hook-form";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Form = () => {
-
+const DateForm = () => {
+    const url = "https://localhost:7077";
     const form = useForm();
-    const { register, control, handleSubmit, watch, formState } = form;
+    const { register, control, handleSubmit, formState } = form;
     const { errors } = formState;
     
     const onSubmit = (data) => {
         const json = JSON.stringify(data);
-        try {
-            console.log(json);
-            window.alert("Dane zostały wysłane pomyślnie.");
-        } catch (error) {
-            window.alert("Błąd rejestracji");
-        }
+        axios.post(url+"/CreateDateCalculation", {
+            startDate: data.InitialDate,
+            interval: parseInt(data.Interval),
+            dayOfWeek: parseInt(data.DayOfTheWeek)
+        })
+            .then(response => {
+                console.log(response)
+                window.alert("Wysłano pomyślnie");
+            })
+            .catch(error => {
+                console.error("Błąd Axios:", error);
+                window.alert("Wystąpił błąd");
+            });
     }
 
     return (
@@ -53,7 +60,10 @@ const Form = () => {
                             {...register("Interval", 
                             { 
                                 validateCriteriaMode: "all",
-                                required: true,
+                                required: {
+                                    value: true,
+                                    message: "Wartość Interwału jest wymagana."
+                                },
                                 validate: {
                                     isPositive: value => value > 0 || "Wartość musi być większa od zera."
                                 }
@@ -76,10 +86,10 @@ const Form = () => {
                         {Object.keys(errors).map((key, index) => (
                             <p key={index} className="text-danger">{errors[key].message}</p>
                         ))}
-                        <button type="submit" className="btn btn-primary">Wyświetl</button>
+                        <button type="submit" className="btn btn-primary">Wyślij</button>
                     </div>
                 </form>
             </div>
     );
   }
-export default Form;
+export default DateForm;
