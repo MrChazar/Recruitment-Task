@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// add dbcontext
+// Add dbcontext
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("TaskDBContext"));
@@ -41,5 +41,10 @@ app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Applying migrations to the database
+using var scope = app.Services.CreateScope();
+await using var dbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+await dbContext.Database.MigrateAsync();
 
 app.Run();

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Result = () => {
     const url = "https://localhost:7077";
@@ -24,7 +25,7 @@ const Result = () => {
                 <div className='bg-dark text-white mt-1 rounded'>
                     <h1>Wynik</h1>
                     <ul className="list-group">
-                        <li className="list-group-item bg-info">Ilość wystąpień: {result.numberOfAppearances}</li>
+                        <li className="list-group-item bg-info">Ilość wystąpień: {result.numberofOccurences}</li>
                         <li className="list-group-item bg-info">Dzisiejsza data: {result.todayDate}</li>
                         <li className="list-group-item bg-info">Pierwsze wystąpienie: {result.firstAppearance}</li>
                         <li className="list-group-item bg-info">Poprzednie wystąpienie: {result.previousApperance}</li>

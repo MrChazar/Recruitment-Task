@@ -18,15 +18,20 @@ function App() {
       <div className="container d-flex justify-content-center align-items-center vh-100">
           <div className="content">
             <DateForm />
+          </div>
+      </div>
+
+      <div className="container d-flex justify-content-center align-items-center mb-1">
+          <div className="content">
             <Result />
           </div>
       </div>
       
-      <Navbar bg="dark" expand="lg">
-        <Container>
-            <Navbar.Brand href='https://github.com/MrChazar' className="text-white">Zadanie Wykonane Przez Jakuba Wieśniak - MrChazar</Navbar.Brand>
-        </Container>
-      </Navbar>
+      <footer class="navbar navbar-dark bg-dark sticky-bottom">
+          <div class="container">
+              <span class="text-white"> <a className="text-white text-decoration-none" href='https://github.com/MrChazar' >Zadanie Wykonane Przez Jakuba Wieśniak - MrChazar</a></span>
+          </div>
+      </footer>
       
     </div>
   );
