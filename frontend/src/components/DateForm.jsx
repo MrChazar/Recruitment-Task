@@ -6,10 +6,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const DateForm = () => {
     const url = "https://localhost:7077";
     const form = useForm();
-    const { register, control, handleSubmit, formState } = form;
+    const { register, handleSubmit, formState } = form;
     const { errors } = formState;
     
     const onSubmit = (data) => {
+        console.log(url);
         const json = JSON.stringify(data);
         axios.post(url+"/CreateDateCalculation", {
             startDate: data.InitialDate,
@@ -79,7 +80,7 @@ const DateForm = () => {
                             <option value="4">Czwartek</option>
                             <option value="5">Piątek</option>
                             <option value="6">Sobota</option>
-                            <option value="7">Niedziela</option>
+                            <option value="0">Niedziela</option>
                         </select>
                     </div>
                     <div className="col-12">

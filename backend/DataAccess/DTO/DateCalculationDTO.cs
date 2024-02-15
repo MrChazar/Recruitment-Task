@@ -31,6 +31,6 @@ public class DateCalculationDTO
     public int Interval { get; set; }
 
     [Required]
-    [Range(1, 7, ErrorMessage = "Dzień tygodnia musi być z zakresu od 1 do 7.")]
+    [Range(0, 6, ErrorMessage = "Dzień tygodnia musi być z zakresu od 0 do 6.")]
     public int DayOfWeek { get; set; }
 }

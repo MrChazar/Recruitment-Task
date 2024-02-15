@@ -20,8 +20,17 @@ public class TaskService : ITaskService
         var todayDate = DateTime.Today;
         DateTime startDate = dateCalculationDto.StartDate;
         int interval = dateCalculationDto.Interval;
-        DayOfWeek dayOfWeek = (DayOfWeek)(dateCalculationDto.DayOfWeek);
-        
+
+        DayOfWeek dayOfWeek = DateTime.Today.DayOfWeek;
+        if (dateCalculationDto.DayOfWeek == 0)
+        {
+            dayOfWeek = DayOfWeek.Sunday;
+        }
+        else
+        {
+            dayOfWeek = (DayOfWeek)(dateCalculationDto.DayOfWeek);
+        }
+                
         // Calculate firstAppearance
         DateTime firstAppearance = startDate;
         while (firstAppearance.DayOfWeek != dayOfWeek)
